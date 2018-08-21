@@ -2,7 +2,24 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+const fs = window.require('fs')
+
 class App extends Component {
+  state = {
+    files: [],
+  }
+
+  componentDidMount = () => {
+    fs.readdir('/', (err, files) => {
+      if (err) {
+        console.log(err)
+        return
+      }
+
+      this.setState({ files })
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,6 +30,11 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.jsx</code> and save to reload.
         </p>
+        <ul>
+          {this.state.files.map(f => (
+            <li>{f}</li>
+          ))}
+        </ul>
       </div>
     )
   }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
     "electron-is-dev": "^0.3.0",
     "electron-publisher-s3": "^20.17.2",
@@ -11,8 +12,9 @@
     "react-dom": "^16.4.2"
   },
   "scripts": {
-    "start:react": "react-scripts start",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start:react": "cross-env BROWSER=none react-scripts start",
+    "start:electron": "wait-on http://localhost:3000 && electron .",
+    "start": "concurrently \"yarn start:react\" \"yarn start:electron\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
@@ -28,9 +30,9 @@
     "wait-on": "^2.1.0"
   },
   "build": {
-    "appId": "com.your-domain",
+    "appId": "com.electron.starter",
     "compression": "normal",
-    "productName": "Example",
+    "productName": "Electron Starter",
     "directories": {
       "buildResources": "build",
       "output": "dist"
